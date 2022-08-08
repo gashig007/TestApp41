@@ -41,19 +41,6 @@ data class Character(
     val created: String
 )
 
-data class Location (
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("url")
-    val url: String
-    )
-
-data class Origin (
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("url")
-    val url: String
-    )
 
 data class CharacterResponse(
     @SerializedName("info")

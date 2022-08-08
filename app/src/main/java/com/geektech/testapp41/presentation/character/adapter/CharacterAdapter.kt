@@ -3,13 +3,14 @@ package com.geektech.testapp41.presentation.character.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.geektech.testapp41.databinding.CharacterListItemBinding
 import com.geektech.testapp41.domain.entity.Character
 
-class CharacterAdapter (private val onclickListener: OnclickListener) :
-    PagingDataAdapter<Character, CharacterAdapter.CharactersViewHolder>(
+class CharacterAdapter(private val onclickListener: (Int) -> Unit) :
+    ListAdapter<Character, CharacterAdapter.CharactersViewHolder>(
         CharactersDiffCallback
     ) {
     var vibrantColor = 0
@@ -24,6 +25,10 @@ class CharacterAdapter (private val onclickListener: OnclickListener) :
             Glide.with(binding.root.context)
                 .load(character?.image)
                 .into(binding.image)
+
+            itemView.setOnClickListener {
+                character?.let { it1 -> onclickListener(it1.id) }
+            }
         }
     }
 
@@ -32,9 +37,6 @@ class CharacterAdapter (private val onclickListener: OnclickListener) :
         position: Int
     ) {
         val character = getItem(position)
-        holder.itemView.setOnClickListener {
-            onclickListener.onClick(character!!, picture, vibrantColor)
-        }
         holder.bind(character)
     }
 

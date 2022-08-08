@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -28,20 +29,28 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttp() : OkHttpClient {
+    fun provideOkHttp(): OkHttpClient {
         return OkHttpClient.Builder().apply {
+            addInterceptor(provideOkHttpLoggingInterceptor())
             connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
         }.build()
     }
 
+    private fun provideOkHttpLoggingInterceptor() = HttpLoggingInterceptor().setLevel(
+        when {
+            BuildConfig.DEBUG -> HttpLoggingInterceptor.Level.BODY
+            else -> HttpLoggingInterceptor.Level.NONE
+        }
+    )
+
+    /*@Provides
     @Singleton
-    @Provides
     fun provideApi(retrofit: Retrofit): CharacterApi = retrofit.create(CharacterApi::class.java)
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideRepository(api: CharacterApi): CharacterRepositoryImpl =
-        CharacterRepositoryImpl(api)
+        CharacterRepositoryImpl(api)*/
 }

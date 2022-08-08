@@ -1,6 +1,7 @@
 package com.geektech.testapp41.data.remote
 
 import com.geektech.testapp41.domain.entity.Character
+import com.geektech.testapp41.domain.entity.CharacterPerson
 import com.geektech.testapp41.domain.entity.CharacterResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,8 +13,8 @@ interface CharacterApi {
     suspend fun getCharacterListResponse(
     ): Response<CharacterResponse>
 
-    @GET("character/{character_id}")
-    suspend fun getCharacterDetails(
-        @Path("character_id") characterId: Int
-    ): Character
+    @GET("character/character/{id}")
+    suspend fun getCharacterPerson(
+        @Path("id") characterId: Int
+    ): Response<CharacterPerson>
 }

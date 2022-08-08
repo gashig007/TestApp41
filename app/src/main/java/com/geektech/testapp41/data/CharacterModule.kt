@@ -22,7 +22,9 @@ class CharacterModule {
 
     @Singleton
     @Provides
-    fun provideMainRepository(api: CharacterApi): CharacterRepository {
+    fun provideMainRepository( api: CharacterApi): CharacterRepository {
         return CharacterRepositoryImpl(api)
     }
+
+
 }

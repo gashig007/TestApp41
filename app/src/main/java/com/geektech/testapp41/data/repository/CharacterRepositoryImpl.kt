@@ -2,9 +2,11 @@ package com.geektech.testapp41.data.repository
 
 import com.geektech.testapp41.data.remote.CharacterApi
 import com.geektech.testapp41.domain.entity.Character
+import com.geektech.testapp41.domain.entity.CharacterPerson
 import com.geektech.testapp41.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
@@ -24,7 +26,17 @@ class CharacterRepositoryImpl @Inject constructor(
         }
     }
 
-    suspend fun getSingleCharacter(id: Int) {
-        api.getCharacterDetails(id)
+    override suspend fun getCharacterPerson(id: Int): Flow<List<CharacterPerson>> {
+        return flow {
+            val response = api.getCharacterPerson(id)
+            if (response.isSuccessful) {
+                println("ds")
+                val body = response.body()
+                if (body?.episode != null) {
+                    println("ds")
+                    emit(body.episode as List<CharacterPerson>)
+                }
+            }
+        }
     }
 }
