@@ -1,6 +1,5 @@
 package com.geektech.testapp41.data.remote
 
-import com.geektech.testapp41.domain.entity.Character
 import com.geektech.testapp41.domain.entity.CharacterPerson
 import com.geektech.testapp41.domain.entity.CharacterResponse
 import retrofit2.Response
