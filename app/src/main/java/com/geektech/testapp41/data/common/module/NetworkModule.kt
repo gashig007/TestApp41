@@ -1,8 +1,6 @@
 package com.geektech.testapp41.data.common.module
 
 import com.geektech.testapp41.BuildConfig
-import com.geektech.testapp41.data.remote.CharacterApi
-import com.geektech.testapp41.data.repository.CharacterRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
